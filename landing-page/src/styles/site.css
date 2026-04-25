@@ -1,0 +1,144 @@
+@import url('./colors_and_type.css');
+@import url('./mesh.css');
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg-0);
+  color: var(--fg);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--font-body); cursor: pointer; border: none; background: none; color: inherit; }
+
+.page-shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 32px;
+  background: rgba(20, 12, 26, 0.55);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border-bottom: 1px solid var(--glass-border);
+}
+.nav .brand { display: flex; align-items: center; gap: 10px; }
+.nav .brand img { width: 24px; height: 24px; }
+.nav .brand .name {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 17px;
+  letter-spacing: -0.02em; color: var(--fg);
+}
+.nav .links { display: flex; gap: 4px; margin-left: 18px; }
+.nav .links a {
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  color: var(--fg-muted);
+  transition: all .15s ease;
+}
+.nav .links a:hover { color: var(--fg); background: var(--glass-hover); }
+.nav .links a.active { color: var(--fg); background: var(--glass-bg-strong); }
+.nav .spacer { flex: 1; }
+.nav .nav-mono {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-dim);
+  display: inline-flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+}
+.nav .nav-mono .pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--label-green);
+  box-shadow: 0 0 10px var(--label-green);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+
+.nav .gh-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--fg);
+  font-size: 13px;
+  transition: all .15s ease;
+}
+.nav .gh-btn:hover { background: var(--glass-hover); border-color: var(--glass-border-strong); }
+.nav .gh-btn .stars { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-weight: 500; font-size: 14px;
+  transition: all .15s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn-primary {
+  background: var(--grad-coral-magenta);
+  color: #fff;
+  box-shadow: 0 0 32px oklch(0.72 0.18 30 / 0.32);
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 44px oklch(0.72 0.18 30 / 0.50); }
+.btn-primary:active { transform: none; }
+
+.btn-glass {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  color: var(--fg);
+  backdrop-filter: blur(18px);
+}
+.btn-glass:hover { background: var(--glass-hover); border-color: var(--glass-border-strong); transform: translateY(-1px); }
+
+.btn-ghost {
+  background: transparent; color: var(--fg-muted);
+}
+.btn-ghost:hover { color: var(--fg); background: var(--glass-hover); }
+
+.btn-lg { padding: 14px 22px; font-size: 15px; }
+.btn svg { flex: none; }
+
+/* ---------- Eyebrow ---------- */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--fg-dim);
+}
+
+/* ---------- Card ---------- */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+}
+
+/* footer */
+.footer {
+  margin-top: 80px;
+  padding: 40px 32px 32px;
+  border-top: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+  font-family: var(--font-body); font-size: 12px; color: var(--fg-dim);
+}
+.footer .links { display: flex; gap: 18px; }
+.footer .links a:hover { color: var(--fg); }
+.footer .meta { font-family: var(--font-mono); font-size: 11px; }

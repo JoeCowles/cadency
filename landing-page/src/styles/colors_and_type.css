@@ -1,0 +1,98 @@
+/* =========================================================================
+   Cadency — Colors & Type
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg-0:      oklch(0.14 0.035 320);
+  --bg-1:      oklch(0.18 0.045 325);
+  --bg-2:      oklch(0.22 0.05  330);
+  --surface:   oklch(0.24 0.04  325);
+
+  --coral:     oklch(0.72 0.18 30);
+  --amber:     oklch(0.82 0.15 75);
+  --magenta:   oklch(0.65 0.22 355);
+  --rose:      oklch(0.70 0.19 15);
+
+  --fg:        oklch(0.97 0.01 60);
+  --fg-muted:  oklch(0.78 0.02 50);
+  --fg-dim:    oklch(0.60 0.025 45);
+
+  --glass-bg:            rgba(255, 240, 230, 0.06);
+  --glass-bg-strong:     rgba(255, 240, 230, 0.09);
+  --glass-border:        rgba(255, 220, 200, 0.12);
+  --glass-border-strong: rgba(255, 220, 200, 0.18);
+  --glass-hover:         rgba(255, 240, 230, 0.10);
+  --blur: 18px;
+
+  --label-green:  oklch(0.72 0.15 145);
+  --label-yellow: oklch(0.85 0.15 95);
+  --label-orange: oklch(0.75 0.17 55);
+  --label-red:    oklch(0.65 0.20 25);
+  --label-purple: oklch(0.62 0.18 310);
+  --label-blue:   oklch(0.70 0.14 240);
+  --label-pink:   oklch(0.72 0.17 0);
+
+  --grad-sunset:        linear-gradient(135deg, var(--coral), var(--magenta) 60%, var(--amber));
+  --grad-coral-magenta: linear-gradient(135deg, var(--coral), var(--magenta));
+  --grad-amber-coral:   linear-gradient(135deg, var(--amber), var(--coral));
+  --grad-magenta-rose:  linear-gradient(135deg, var(--magenta), var(--rose));
+
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 999px;
+
+  --shadow-sm:   0 2px 8px rgba(0,0,0,0.25);
+  --shadow-md:   0 8px 24px rgba(0,0,0,0.35), inset 0 0 1px rgba(255,200,180,0.10);
+  --shadow-lg:   0 20px 60px rgba(0,0,0,0.50), inset 0 0 1px rgba(255,200,180,0.15);
+  --shadow-glow: 0 0 40px oklch(0.72 0.18 30 / 0.25);
+
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body:    'Inter',         ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  --t-hero:     72px;   --lh-hero:    1.05;
+  --t-page:     34px;   --lh-page:    1.10;
+  --t-section:  21px;   --lh-section: 1.20;
+  --t-card:     15px;   --lh-card:    1.30;
+  --t-body:     14px;   --lh-body:    1.50;
+  --t-small:    12px;   --lh-small:   1.45;
+  --t-eyebrow:  11px;   --lh-eyebrow: 1.20;
+
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --dur:  0.15s;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--fg);
+  background: var(--bg-0);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--fg-dim);
+}
+
+.gradient-text {
+  background: var(--grad-sunset);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+landing-page/dist/
+landing-page/dist-ssr/
+todo-app/.next/
+todo-app/out/
+todo-app/build/
+
+# Env files
+.env*
+*.local
+!.gitignore
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Testing
+coverage/
+
+# Misc
+*.pem
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+todo-app/public/uploads/

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none">
+  <defs>
+    <linearGradient id="cadency-sunset" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="oklch(0.72 0.18 30)"></stop>
+      <stop offset="60%" stop-color="oklch(0.65 0.22 355)"></stop>
+      <stop offset="100%" stop-color="oklch(0.82 0.15 75)"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M7 1 H22 L31 10 V25 a6 6 0 0 1 -6 6 H7 a6 6 0 0 1 -6 -6 V7 a6 6 0 0 1 6 -6 z" fill="url(#cadency-sunset)"></path>
+  <path d="M22 1 V7 a3 3 0 0 0 3 3 H31" fill="none" stroke="rgba(255,255,255,0.30)" stroke-width="1.25" stroke-linejoin="round"></path>
+</svg>
