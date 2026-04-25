@@ -21,7 +21,7 @@ const PANELS = {
       { title: 'Click <strong>Add to Chrome</strong>', detail: 'A small confirmation dialog will pop up listing the permissions Cadency Recording needs.', key: true },
       { title: 'Approve <kbd>Add extension</kbd>', detail: 'Chrome will download and verify the signed build, then drop the icon into your toolbar.' },
       { title: 'Pin the icon', detail: 'Click the puzzle-piece in the top-right, find Cadency Recording, and hit the pin so it stays visible.' },
-      { title: 'Open the extension', detail: "Click the toolbar icon. Sign into your workspace (or paste a self-hosted URL), and you're ready to record." },
+      { title: 'Open the extension', detail: "Click the toolbar icon and you're ready to record your screen, tab, or window." },
     ],
   },
   zip: {
@@ -41,27 +41,25 @@ const PANELS = {
       { title: 'Toggle <kbd>Developer mode</kbd> on', detail: "It's the switch in the top-right. This unlocks the unpacked-extension flow." },
       { title: 'Click <kbd>Load unpacked</kbd>', detail: 'A folder picker appears. Select the <code>cadency-recording</code> folder you unzipped (the one containing <code>manifest.json</code>).', key: true },
       { title: 'Pin the toolbar icon', detail: 'Click the puzzle-piece icon, find Cadency Recording, and pin it. Now you can launch a recording in one click.' },
-      { title: 'Connect your workspace', detail: 'Click the icon, paste your Cadency URL, sign in. To update later, download a fresh zip and replace the folder — Chrome will reload it on restart.' },
+      { title: 'Start recording', detail: 'Click the icon and start capturing. To update later, download a fresh zip and replace the folder — Chrome will reload it on restart.' },
     ],
   },
   github: {
     eyebrow: 'Method 03 · Source',
-    title: 'Build from source',
-    desc: "Clone the repo, read every line, build the extension yourself. The right path for security-audited environments and contributors. Same end result as the zip — you just produced it.",
-    primary: { label: 'Open on GitHub', icon: 'github', href: 'https://github.com/cadency/recording' },
-    secondary: { label: 'Read CONTRIBUTING.md', href: 'https://github.com/cadency/recording/blob/main/CONTRIBUTING.md' },
+    title: 'Load from source',
+    desc: "Clone the monorepo, read every line, load the extension directly from source. The right path for security-audited environments and contributors.",
+    primary: { label: 'Open on GitHub', icon: 'github', href: 'https://github.com/JoeCowles/cadency' },
+    secondary: { label: 'View source', href: 'https://github.com/JoeCowles/cadency/tree/main/recording' },
     info: [
-      { num: 'Node 20', label: 'pnpm 9' },
-      { num: '~2 min', label: 'cold build' },
+      { num: 'No build', label: 'vanilla JS extension' },
+      { num: '~2 min', label: 'clone to running' },
     ],
-    duration: '~ 5 minutes',
+    duration: '~ 2 minutes',
     steps: [
-      { title: 'Clone the repository', detail: 'Use SSH or HTTPS — whichever you have set up.', key: true, code: 'git clone https://github.com/cadency/recording.git' },
-      { title: 'Install dependencies', detail: 'We use pnpm; npm/yarn also work.', code: 'cd recording && pnpm install' },
-      { title: 'Build the extension bundle', detail: 'Outputs an unpacked extension to <code>dist/</code>. For development, swap in <code>pnpm dev</code> for a watch build.', code: 'pnpm build', key: true },
+      { title: 'Clone the repository', detail: 'Use SSH or HTTPS — whichever you have set up.', key: true, code: 'git clone https://github.com/JoeCowles/cadency.git' },
       { title: 'Open <code>chrome://extensions</code>', detail: 'Toggle <kbd>Developer mode</kbd> on (top-right).' },
-      { title: 'Load <code>dist/</code> as unpacked', detail: 'Click <kbd>Load unpacked</kbd> and select the <code>dist/</code> folder. Chrome verifies the manifest and adds the extension.' },
-      { title: 'Pin and connect', detail: "Same as the other methods — pin the toolbar icon, paste your workspace URL, sign in. Pull and rebuild any time you want updates." },
+      { title: 'Load the <code>recording/</code> folder as unpacked', detail: 'Click <kbd>Load unpacked</kbd> and select the <code>cadency/recording</code> folder (the one containing <code>manifest.json</code>). Chrome verifies the manifest and adds the extension.', key: true },
+      { title: 'Pin and record', detail: "Pin the toolbar icon and you're ready to go. Pull the latest changes any time you want updates." },
     ],
   },
 };
@@ -125,9 +123,9 @@ const METHOD_CARDS = [
     ),
     badge: 'SOURCE',
     badgeClass: '',
-    title: 'Build from source',
-    desc: 'Clone the repo, audit every line, build it yourself. For homelabs and security-conscious teams.',
-    foot: 'BUILD · 5 min',
+    title: 'Load from source',
+    desc: 'Clone the repo, audit every line, load it directly. For homelabs and security-conscious teams.',
+    foot: 'SOURCE · 2 min',
   },
 ];
 
@@ -280,9 +278,9 @@ export default function RecordingPage() {
                 <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
             </div>
-            <h4>Connect to your workspace</h4>
-            <p>After install, click the toolbar icon and paste your workspace URL. For self-hosters: <code style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--coral)' }}>https://cadency.your-domain.dev</code>.</p>
-            <a href="#workspace">Workspace setup →</a>
+            <h4>How recording works</h4>
+            <p>Click the toolbar icon, choose tab or screen capture, toggle webcam and mic. Recordings export as local WebM files — nothing leaves your machine.</p>
+            <a href="https://github.com/JoeCowles/cadency/tree/main/recording">View source →</a>
           </div>
           <div className="help-card">
             <div className="icon-wrap">

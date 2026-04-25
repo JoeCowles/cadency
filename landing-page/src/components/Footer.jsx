@@ -11,7 +11,7 @@ export default function Footer({ variant = 'main' }) {
           <span className="meta">&copy; 2026 · Apache 2.0</span>
         </div>
         <div className="links">
-          <a href="https://github.com/cadency/recording" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://github.com/JoeCowles/cadency" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="#changelog">Changelog</a>
           <a href="#perms">Permissions</a>
           <a href="#privacy">Privacy</a>
@@ -30,14 +30,14 @@ export default function Footer({ variant = 'main' }) {
         <span className="meta">&copy; 2026 · Apache 2.0</span>
       </div>
       <div className="links">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/JoeCowles/cadency" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="#docs">Docs</a>
         <Link to="/recording">Recording</Link>
         <a href="#changelog">Changelog</a>
         <a href="#discord">Discord</a>
         <a href="#status">Status</a>
       </div>
-      <span className="meta">v2.4.0 · main · 41a3e9c</span>
+      <span className="meta">v0.1.0 · main</span>
     </footer>
   );
 }

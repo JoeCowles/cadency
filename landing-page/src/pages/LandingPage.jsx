@@ -27,7 +27,7 @@ export default function LandingPage() {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    const text = 'docker run -p 3000:3000 ghcr.io/cadency/server:latest';
+    const text = 'git clone https://github.com/JoeCowles/cadency.git && cd cadency/todo-app && npm install && npm run dev';
     navigator.clipboard?.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 1400);
@@ -42,7 +42,7 @@ export default function LandingPage() {
         {/* HERO */}
         <section className="hero">
           <div className="eyebrow-row">
-            <span className="pill">v2.4 · APRIL 2026</span>
+            <span className="pill">v0.1.0 · APRIL 2026</span>
             <span className="label">Async recording is here — try the Chrome extension</span>
           </div>
           <h1>The cadence your team <span className="accent">already has.</span></h1>
@@ -59,7 +59,7 @@ export default function LandingPage() {
             <Link className="btn btn-glass btn-lg" to="/recording">
               Get the Recording extension
             </Link>
-            <a className="btn btn-ghost btn-lg" href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <a className="btn btn-ghost btn-lg" href="https://github.com/JoeCowles/cadency" target="_blank" rel="noopener noreferrer">
               View on GitHub
               <ExternalIcon />
             </a>
@@ -98,22 +98,22 @@ export default function LandingPage() {
               <h2>To-Do</h2>
               <p className="tagline">A boards-and-tasks tracker that thinks in cadence — sprints, standups, and shipping windows your team actually keeps.</p>
               <ul className="features">
-                <li><span className="check"><CheckIcon /></span>Real-time multiplayer boards, comments &amp; mentions</li>
-                <li><span className="check"><CheckIcon /></span>Cross-team coordination with shared cadences</li>
-                <li><span className="check"><CheckIcon /></span>⌘K palette, keyboard-first navigation</li>
-                <li><span className="check"><CheckIcon /></span>Webhooks, REST &amp; GraphQL API for everything</li>
+                <li><span className="check"><CheckIcon /></span>Boards, lists, and cards with drag-and-drop</li>
+                <li><span className="check"><CheckIcon /></span>Workspaces with member management &amp; labels</li>
+                <li><span className="check"><CheckIcon /></span>⌘K command palette, search, and notifications</li>
+                <li><span className="check"><CheckIcon /></span>Built-in AI assistant powered by Claude</li>
               </ul>
               <div className="footer-row">
                 <a className="btn btn-primary" href="https://app.cadency.dev" target="_blank" rel="noopener noreferrer">
                   Open To-Do
                   <ArrowIcon />
                 </a>
-                <a className="btn btn-glass" href="https://github.com" target="_blank" rel="noopener noreferrer">Self-host</a>
+                <a className="btn btn-glass" href="https://github.com/JoeCowles/cadency" target="_blank" rel="noopener noreferrer">Self-host</a>
               </div>
               <div className="meta-row">
-                <span>NODE 20+</span>
+                <span>NEXT.JS</span>
                 <span>POSTGRES</span>
-                <span>2-MIN INSTALL</span>
+                <span>DRIZZLE ORM</span>
               </div>
             </div>
           </article>
@@ -154,10 +154,10 @@ export default function LandingPage() {
               <h2>Recording</h2>
               <p className="tagline">A screen recorder built for product teams. Capture a flow, attach it to a card, share a link — replace the meeting.</p>
               <ul className="features">
-                <li><span className="check"><CheckIcon /></span>Tab, window, or full-screen capture with mic + camera</li>
-                <li><span className="check"><CheckIcon /></span>One-click attach to any Cadency card</li>
-                <li><span className="check"><CheckIcon /></span>Auto-transcripts &amp; chapter timestamps</li>
-                <li><span className="check"><CheckIcon /></span>Local-first — recordings never leave your server</li>
+                <li><span className="check"><CheckIcon /></span>Tab or full-screen capture with mic + webcam overlay</li>
+                <li><span className="check"><CheckIcon /></span>Draggable camera bubble with Picture-in-Picture</li>
+                <li><span className="check"><CheckIcon /></span>Local WebM export — recordings stay on your machine</li>
+                <li><span className="check"><CheckIcon /></span>Lightweight Chrome extension, no server required</li>
               </ul>
               <div className="footer-row">
                 <Link className="btn btn-primary" to="/recording">
@@ -180,8 +180,7 @@ export default function LandingPage() {
           <span className="item"><strong>OPEN SOURCE</strong> · Apache 2.0</span><span className="dot"></span>
           <span className="item"><strong>SELF-HOSTABLE</strong> · Docker, k8s, bare metal</span><span className="dot"></span>
           <span className="item"><strong>FREE</strong> · No SaaS tier, no paywalls</span><span className="dot"></span>
-          <span className="item"><strong>STACK</strong> · TypeScript · Postgres · Rust workers</span><span className="dot"></span>
-          <span className="item"><strong>TRUSTED BY</strong> · 2,400+ teams</span>
+          <span className="item"><strong>STACK</strong> · TypeScript · Next.js · Postgres</span>
         </div>
 
         {/* MANIFESTO */}
@@ -210,7 +209,7 @@ export default function LandingPage() {
               </div>
               <h3>Source-available, always.</h3>
               <p>Every commit, every release, every issue is public. Apache 2.0 means no rug pulls — fork it tomorrow if we lose the plot.</p>
-              <div className="stat"><span className="num">2,184</span> stars · <span className="num">94</span> contributors</div>
+              <div className="stat">Apache 2.0 · public repo</div>
             </div>
             <div className="pillar">
               <div className="icon-wrap">
@@ -247,7 +246,7 @@ export default function LandingPage() {
             </div>
             <div className="cmd">
               <span className="prompt">$</span>
-              <span>docker run -p 3000:3000 ghcr.io/cadency/server:latest</span>
+              <span>git clone https://github.com/JoeCowles/cadency.git</span>
               <span className="copy" onClick={handleCopy}>{copied ? 'Copied' : 'Copy'}</span>
             </div>
           </div>

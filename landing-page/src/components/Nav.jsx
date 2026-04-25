@@ -26,17 +26,16 @@ export default function Nav({ variant = 'main' }) {
       <div className="spacer"></div>
       <span className="nav-mono">
         <span className="pulse"></span>
-        {variant === 'recording' ? 'v0.9.2 BETA' : 'v2.4.0 · MIT'}
+        {variant === 'recording' ? 'v0.9.2 BETA' : 'v0.1.0 · Apache 2.0'}
       </span>
       <a
         className="gh-btn"
-        href={variant === 'recording' ? 'https://github.com/cadency/recording' : 'https://github.com'}
+        href="https://github.com/JoeCowles/cadency"
         target="_blank"
         rel="noopener noreferrer"
       >
         <GitHubIcon />
-        {variant === 'recording' ? 'Source' : 'Star'}
-        <span className="stars">{variant === 'recording' ? '1.2k' : '8.4k'}</span>
+        {variant === 'recording' ? 'Source' : 'GitHub'}
       </a>
     </nav>
   );
