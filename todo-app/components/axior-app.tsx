@@ -10,7 +10,7 @@ import { BoardsListPage } from './boards-list';
 import { BoardPage } from './board';
 import type { ApiBoard as BoardApiType, ApiCard } from './board';
 import { CardModal } from './card-modal';
-import { CalendarView, DashboardView, MembersView, SettingsView, NotificationsPanel, CommandPalette } from './views';
+import { CalendarView, DashboardView, MembersView, SettingsView, AccountSettingsView, NotificationsPanel, CommandPalette } from './views';
 import { InviteModal, CreateBoardModal, CreateWorkspaceModal } from './modals';
 import { LandingPage, AuthPage } from './landing-auth';
 import { FilesView } from './files-view';
@@ -114,7 +114,7 @@ export default function AxiorApp() {
       setRoute(prev => ({ page: 'dashboard', boardId: apiBoards?.[0]?.id, workspaceId: prev.workspaceId || apiWorkspaces?.[0]?.id }));
     } else if (page === 'ws-files') {
       setRoute(prev => ({ ...prev, page: 'files' }));
-    } else if (page === 'workspaces' || page === 'landing' || page === 'login' || page === 'register') {
+    } else if (page === 'workspaces' || page === 'landing' || page === 'login' || page === 'register' || page === 'account-settings') {
       setRoute({ page });
     } else {
       setRoute(prev => ({ ...prev, page }));
@@ -345,6 +345,11 @@ export default function AxiorApp() {
       { label: 'Settings' },
     ];
     content = <SettingsView workspace={workspace} onDelete={() => nav('workspaces')} />;
+  } else if (route.page === 'account-settings') {
+    breadcrumb = [
+      { label: 'Account Settings' },
+    ];
+    content = <AccountSettingsView onNav={nav} />;
   }
 
   return (
@@ -360,6 +365,8 @@ export default function AxiorApp() {
           onToggleAi={() => setAiOpen(o => !o)}
           aiOpen={aiOpen}
           unread={unread}
+          onNav={nav}
+          onLogout={() => signOut({ redirect: false }).then(() => nav('landing'))}
         />
         <div className="main-with-sidebar">
           <Sidebar
@@ -385,6 +392,7 @@ export default function AxiorApp() {
             open={aiOpen}
             onClose={() => setAiOpen(false)}
             context={{ workspaceId: route.workspaceId, boardId: route.boardId }}
+            onOpenAccountSettings={() => { setAiOpen(false); nav('account-settings'); }}
           />
         </div>
       </div>

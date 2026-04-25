@@ -1154,3 +1154,168 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onClose, onNav }
     </div>
   );
 };
+
+// ── AccountSettingsView ────────────────────────────────────────────────────
+
+interface AccountSettingsViewProps {
+  onNav: (page: string) => void;
+}
+
+export const AccountSettingsView: React.FC<AccountSettingsViewProps> = ({ onNav }) => {
+  const { user, logout } = useAuth();
+  const [apiKeyInput, setApiKeyInput] = React.useState('');
+  const [apiKeyHint, setApiKeyHint] = React.useState('');
+  const [hasKey, setHasKey] = React.useState(false);
+  const [saving, setSaving] = React.useState(false);
+  const [deleting, setDeleting] = React.useState(false);
+  const [message, setMessage] = React.useState('');
+
+  React.useEffect(() => {
+    fetch('/api/users/me/api-key')
+      .then(r => r.json())
+      .then(d => { setHasKey(!!d.hasKey); setApiKeyHint(d.hint || ''); })
+      .catch(() => {});
+  }, []);
+
+  const handleSaveKey = async () => {
+    if (!apiKeyInput.trim()) return;
+    setSaving(true);
+    setMessage('');
+    try {
+      const res = await fetch('/api/users/me/api-key', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey: apiKeyInput.trim() }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setHasKey(true);
+        setApiKeyHint(data.hint || '');
+        setApiKeyInput('');
+        setMessage('API key saved successfully.');
+      } else {
+        setMessage(data.error || 'Failed to save key.');
+      }
+    } catch {
+      setMessage('Failed to save key.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDeleteKey = async () => {
+    setDeleting(true);
+    setMessage('');
+    try {
+      await fetch('/api/users/me/api-key', { method: 'DELETE' });
+      setHasKey(false);
+      setApiKeyHint('');
+      setMessage('API key removed.');
+    } catch {
+      setMessage('Failed to remove key.');
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const displayName = user?.name || user?.email?.split('@')[0] || 'User';
+  const displayEmail = user?.email || '';
+
+  return (
+    <div style={{ flex: 1, padding: 24, overflow: 'auto', maxWidth: 620, width: '100%', margin: '0 auto' }}>
+      <div style={{ marginBottom: 20 }}>
+        <h2 style={{ fontSize: 22 }}>Account Settings</h2>
+        <div className="muted" style={{ fontSize: 13 }}>Manage your profile and integrations</div>
+      </div>
+
+      {/* Profile */}
+      <div className="glass" style={{ padding: 20, marginBottom: 14 }}>
+        <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 14, fontFamily: 'var(--font-display)' }}>Profile</div>
+        <div className="row" style={{ gap: 14, marginBottom: 16 }}>
+          <Avatar name={displayName} size="lg" />
+          <div>
+            <div style={{ fontSize: 15, fontWeight: 600 }}>{displayName}</div>
+            <div className="dim" style={{ fontSize: 12 }}>{displayEmail}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* AI Assistant API Key */}
+      <div className="glass" style={{ padding: 20, marginBottom: 14 }}>
+        <div className="row" style={{ marginBottom: 6 }}>
+          <Icon name="sparkles" size={15} />
+          <div style={{ fontWeight: 600, fontSize: 14, fontFamily: 'var(--font-display)' }}>AI Assistant</div>
+        </div>
+        <div className="muted" style={{ fontSize: 12, marginBottom: 14 }}>
+          Your Claude API key is encrypted with AES-256-GCM and stored securely on the server. It is never exposed to the browser after saving.
+        </div>
+
+        {hasKey ? (
+          <div>
+            <div className="row" style={{ gap: 10, marginBottom: 10 }}>
+              <div style={{
+                flex: 1, padding: '8px 12px', borderRadius: 8,
+                background: 'var(--glass-bg)', border: '1px solid var(--glass-border)',
+                fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg-muted)',
+              }}>
+                {apiKeyHint}
+              </div>
+              <button
+                className="btn btn-sm"
+                style={{ color: 'var(--label-red)', borderColor: 'var(--label-red)' }}
+                onClick={handleDeleteKey}
+                disabled={deleting}
+              >
+                {deleting ? 'Removing...' : 'Remove'}
+              </button>
+            </div>
+            <div className="dim" style={{ fontSize: 11 }}>Key is configured and encrypted. Remove it to enter a new one.</div>
+          </div>
+        ) : (
+          <div>
+            <label className="dim" style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: 6 }}>Claude API Key</label>
+            <div className="row" style={{ gap: 8 }}>
+              <input
+                className="input"
+                type="password"
+                placeholder="sk-ant-api03-..."
+                value={apiKeyInput}
+                onChange={(e) => setApiKeyInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSaveKey()}
+                style={{ flex: 1, fontFamily: 'var(--font-mono)', fontSize: 12 }}
+              />
+              <Btn variant="primary" onClick={handleSaveKey} disabled={saving || !apiKeyInput.trim()}>
+                {saving ? 'Saving...' : 'Save'}
+              </Btn>
+            </div>
+            <div className="dim" style={{ fontSize: 11, marginTop: 6 }}>
+              Get your API key from console.anthropic.com. It will be encrypted before storage.
+            </div>
+          </div>
+        )}
+
+        {message && (
+          <div style={{
+            marginTop: 10, fontSize: 12, padding: '6px 10px', borderRadius: 6,
+            background: message.includes('success') || message.includes('removed') ? 'rgba(0,200,100,0.1)' : 'rgba(255,100,100,0.1)',
+            color: message.includes('success') || message.includes('removed') ? 'var(--label-green)' : 'var(--label-red)',
+          }}>
+            {message}
+          </div>
+        )}
+      </div>
+
+      {/* Sign out */}
+      <div className="glass" style={{ padding: 20 }}>
+        <button
+          className="btn btn-sm"
+          style={{ color: 'var(--fg-muted)' }}
+          onClick={() => { logout().then(() => onNav('landing')); }}
+        >
+          <Icon name="logout" size={13} />
+          Sign out
+        </button>
+      </div>
+    </div>
+  );
+};

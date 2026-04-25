@@ -20,11 +20,24 @@ interface TopbarProps {
   unread: number;
   theme: string;
   setTheme: (t: string) => void;
+  onNav: (page: string) => void;
+  onLogout: () => void;
 }
 
-export const Topbar: React.FC<TopbarProps> = ({ breadcrumb, onOpenSearch, onOpenNotifs, onToggleAi, aiOpen, unread, theme, setTheme }) => {
+export const Topbar: React.FC<TopbarProps> = ({ breadcrumb, onOpenSearch, onOpenNotifs, onToggleAi, aiOpen, unread, theme, setTheme, onNav, onLogout }) => {
   const { user } = useAuth();
   const displayName = user?.name || user?.email?.split('@')[0] || 'User';
+  const [userMenuOpen, setUserMenuOpen] = React.useState(false);
+  const menuRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (!userMenuOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setUserMenuOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [userMenuOpen]);
 
   return (
     <div className="topbar">
@@ -97,7 +110,54 @@ export const Topbar: React.FC<TopbarProps> = ({ breadcrumb, onOpenSearch, onOpen
           <span style={{ position: 'absolute', top: 4, right: 4, width: 8, height: 8, background: 'var(--coral)', borderRadius: '50%', border: '1.5px solid var(--bg-0)' }} />
         )}
       </button>
-      <Avatar name={displayName} />
+      <div ref={menuRef} style={{ position: 'relative' }}>
+        <button
+          onClick={() => setUserMenuOpen(o => !o)}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
+        >
+          <Avatar name={displayName} />
+        </button>
+        {userMenuOpen && (
+          <div
+            style={{
+              position: 'absolute', right: 0, top: '100%', marginTop: 6,
+              minWidth: 180, zIndex: 50, borderRadius: 10, overflow: 'hidden',
+              background: 'var(--bg-1)', boxShadow: 'var(--shadow-lg)',
+              border: '1px solid var(--glass-border)',
+            }}
+          >
+            <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--glass-border)' }}>
+              <div style={{ fontSize: 13, fontWeight: 600 }}>{displayName}</div>
+              <div className="dim" style={{ fontSize: 11 }}>{user?.email || ''}</div>
+            </div>
+            <div
+              onClick={() => { setUserMenuOpen(false); onNav('account-settings'); }}
+              style={{
+                padding: '10px 14px', fontSize: 13, cursor: 'pointer',
+                display: 'flex', alignItems: 'center', gap: 8,
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = 'var(--glass-bg)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = 'transparent'; }}
+            >
+              <Icon name="settings" size={14} />
+              Settings
+            </div>
+            <div
+              onClick={() => { setUserMenuOpen(false); onLogout(); }}
+              style={{
+                padding: '10px 14px', fontSize: 13, cursor: 'pointer',
+                display: 'flex', alignItems: 'center', gap: 8,
+                borderTop: '1px solid var(--glass-border)',
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = 'var(--glass-bg)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = 'transparent'; }}
+            >
+              <Icon name="logout" size={14} />
+              Log out
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
